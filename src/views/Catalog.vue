@@ -35,7 +35,8 @@ import { mapState } from "vuex";
 import ProductCard from "@/components/ProductCard.vue";
 
 export default {
-  name: "App",
+  name: "CatalogView",
+
   components: {
     ProductCard,
   },
