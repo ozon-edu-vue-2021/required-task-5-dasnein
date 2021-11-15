@@ -1,5 +1,5 @@
 <template>
-  <div class="group relative">
+  <div class="group relative pb-16">
     <div
       class="
         w-full
@@ -13,8 +13,8 @@
       "
     >
       <img
-        src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
-        alt="Front of men&#039;s Basic Tee in black."
+        :src="require(`../assets/images/${product.img}`)"
+        :alt="product.description"
         class="w-full h-full object-center object-cover lg:w-full lg:h-full"
       />
     </div>
@@ -23,80 +23,97 @@
         <h3 class="text-sm text-gray-700">
           <a href="#">
             <!-- <span aria-hidden="true" class="absolute inset-0"></span> -->
-            Basic Tee
+            {{ product.title }}
           </a>
         </h3>
-        <p class="mt-1 text-sm text-gray-500">Black</p>
+        <p class="mt-1 text-sm text-gray-500 product__description">
+          {{ product.description }}
+        </p>
       </div>
-      <p class="text-sm font-medium text-gray-900">$35</p>
+      <p class="text-sm font-medium text-gray-900">${{ product.price }}</p>
     </div>
-    <button
-      class="
-        bg-white
-        border border-gray-400
-        font-semibold
-        hover:bg-gray-100
-        mt-6
-        px-4
-        py-2
-        rounded
-        shadow
-        text-gray-800
-        w-full
-      "
-    >
-      Add to cart
-    </button>
-    <div class="inline-block relative w-full">
-      <select
+
+    <div class="w-full absolute bottom-0 left-0">
+      <SelectDropdown
+        v-if="isProductInCart"
+        v-model="quantity"
+        @change="addToCart"
+      />
+      <button
+        v-else
         class="
-          block
-          appearance-none
-          w-full
           bg-white
           border border-gray-400
-          hover:border-gray-500
+          font-semibold
+          hover:bg-gray-100
+          mt-6
           px-4
           py-2
-          pr-8
           rounded
           shadow
-          leading-tight
-          focus:outline-none focus:shadow-outline
+          text-gray-800
+          w-full
         "
+        @click="addToCart"
       >
-        <option>Really long option that will likely overlap the chevron</option>
-        <option>Option 2</option>
-        <option>Option 3</option>
-      </select>
-      <div
-        class="
-          pointer-events-none
-          absolute
-          inset-y-0
-          right-0
-          flex
-          items-center
-          px-2
-          text-gray-700
-        "
-      >
-        <svg
-          class="fill-current h-4 w-4"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-        >
-          <path
-            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-          />
-        </svg>
-      </div>
+        Add to cart
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { ACTION_ADD_TO_CART } from "@/store/actions";
+
+import SelectDropdown from "@/components/SelectDropdown.vue";
+
 export default {
   name: "ProductCard",
+
+  components: {
+    SelectDropdown,
+  },
+
+  props: {
+    product: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      quantity: 1,
+    };
+  },
+
+  computed: {
+    isProductInCart() {
+      return !!this.$store.state.cart.find(
+        (item) => item.id === this.product.id
+      );
+    },
+  },
+
+  methods: {
+    addToCart() {
+      const product = {
+        id: this.product.id,
+        quantity: this.quantity,
+      };
+
+      this.$store.dispatch(ACTION_ADD_TO_CART, product);
+    },
+  },
 };
 </script>
+
+<style scoped>
+.product__description {
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  display: -webkit-box;
+}
+</style>

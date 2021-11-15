@@ -19,23 +19,29 @@
           xl:gap-x-8
         "
       >
-        <product-card />
-        <product-card />
-        <product-card />
-        <product-card />
-        <product-card />
+        <product-card
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import ProductCard from "@/components/ProductCard.vue";
 
 export default {
   name: "App",
   components: {
     ProductCard,
+  },
+
+  computed: {
+    ...mapState(["products"]),
   },
 };
 </script>
