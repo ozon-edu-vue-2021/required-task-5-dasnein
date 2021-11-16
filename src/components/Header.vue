@@ -70,7 +70,7 @@
 import { mapState } from "vuex";
 
 import HeaderNavigationLink from "./HeaderNavigationLink.vue";
-import ShoppingBagIcon from "../assets/icons/ShoppingBag.svg";
+import ShoppingBagIcon from "@/assets/icons/ShoppingBag.svg";
 
 export default {
   name: "Header",

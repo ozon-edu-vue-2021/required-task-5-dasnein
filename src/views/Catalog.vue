@@ -1,8 +1,6 @@
 <template>
   <div class="container mx-auto my-10">
-    <h1 class="text-5xl text-center font-bold">
-      Route256 required-task-5 Store
-    </h1>
+    <h1 class="text-5xl text-center font-bold">Catalog</h1>
 
     <div
       class="

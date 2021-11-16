@@ -32,7 +32,7 @@
 <script>
 import { mapState } from "vuex";
 
-import ArrowLeft from "../assets/icons/ArrowLeft.svg";
+import ArrowLeft from "@/assets/icons/ArrowLeft.svg";
 import CartHeader from "@/components/CartHeader.vue";
 import CartItem from "@/components/CartItem.vue";
 import CartSummary from "@/components/CartSummary.vue";

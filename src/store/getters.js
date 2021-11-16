@@ -1,5 +1,3 @@
-export const GETTER_FACOURITE_PRODUCTS = "favouriteProducts";
-
 export default {
   cartItemsQuantity(state) {
     return state.cart.reduce(
@@ -14,7 +12,7 @@ export default {
       return totalPrice + product.price * item.quantity;
     }, 0);
   },
-  [GETTER_FACOURITE_PRODUCTS](state) {
+  favouriteProducts(state) {
     return state.products.filter((product) => product.favourite);
   },
 };

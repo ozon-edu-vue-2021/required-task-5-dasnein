@@ -1,9 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import CatalogView from "../views/Catalog.vue";
-import CartView from "../views/Cart.vue";
-import FavouritesView from "../views/Favourites.vue";
+import CatalogView from "@/views/Catalog.vue";
+import CartView from "@/views/Cart.vue";
+import FavouritesView from "@/views/Favourites.vue";
 
 Vue.use(VueRouter);
 

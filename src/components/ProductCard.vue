@@ -18,7 +18,7 @@
         class="w-full h-full object-center object-cover lg:w-full lg:h-full"
       />
       <button class="absolute top-2 right-2" @click="toggleFavourites">
-        <Favourite :class="favouriteIconClass" />
+        <FavouriteIcon :class="favouriteIconClass" />
       </button>
     </div>
     <div class="mt-4 flex justify-between">
@@ -72,14 +72,14 @@ import {
   ACTION_TOGGLE_FAVOURITE,
 } from "@/store/actions";
 
-import Favourite from "../assets/icons/Favourite.svg";
+import FavouriteIcon from "@/assets/icons/Favourite.svg";
 import QuantityInput from "@/components/QuantityInput.vue";
 
 export default {
   name: "ProductCard",
 
   components: {
-    Favourite,
+    FavouriteIcon,
     QuantityInput,
   },
 
@@ -137,4 +137,3 @@ export default {
   },
 };
 </script>
-

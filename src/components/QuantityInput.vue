@@ -44,11 +44,15 @@ export default {
         let newValue = value;
 
         if (typeof value === "string") {
-          newValue = Number(value.replaceAll(/[e-]/gi, ""));
+          newValue = Number.parseInt(value);
+
+          if (Number.isNaN(newValue)) {
+            return;
+          }
         }
 
-        if (newValue < 0) {
-          return 0;
+        if (newValue < 1) {
+          return;
         }
 
         this.$emit("input", newValue);
