@@ -22,7 +22,6 @@
       <div>
         <h3 class="text-sm text-gray-700">
           <a href="#">
-            <!-- <span aria-hidden="true" class="absolute inset-0"></span> -->
             {{ product.title }}
           </a>
         </h3>
@@ -34,9 +33,10 @@
     </div>
 
     <div class="w-full absolute bottom-0 left-0">
-      <SelectDropdown
+      <QuantityInput
         v-if="isProductInCart"
         v-model="quantity"
+        class="flex justify-center"
         @change="addToCart"
       />
       <button
@@ -63,15 +63,15 @@
 </template>
 
 <script>
-import { ACTION_ADD_TO_CART } from "@/store/actions";
+import { ACTION_ADD_TO_CART, ACTION_REMOVE_FROM_CART } from "@/store/actions";
 
-import SelectDropdown from "@/components/SelectDropdown.vue";
+import QuantityInput from "@/components/QuantityInput.vue";
 
 export default {
   name: "ProductCard",
 
   components: {
-    SelectDropdown,
+    QuantityInput,
   },
 
   props: {
@@ -88,10 +88,11 @@ export default {
   },
 
   computed: {
+    item() {
+      return this.$store.state.cart.find((item) => item.id === this.product.id);
+    },
     isProductInCart() {
-      return !!this.$store.state.cart.find(
-        (item) => item.id === this.product.id
-      );
+      return !!this.item;
     },
   },
 
@@ -104,6 +105,16 @@ export default {
 
       this.$store.dispatch(ACTION_ADD_TO_CART, product);
     },
+  },
+
+  created() {
+    if (this.isProductInCart) {
+      this.quantity = this.item.quantity;
+    }
+
+    if (this.quantity === 0) {
+      this.$store.dispatch(ACTION_REMOVE_FROM_CART, this.product.id);
+    }
   },
 };
 </script>

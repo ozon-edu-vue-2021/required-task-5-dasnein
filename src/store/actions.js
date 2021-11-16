@@ -2,9 +2,11 @@ import { MUTATION_SET_PRODUCTS, MUTATION_UPDATE_CART } from "./mutations";
 
 export const ACTION_GET_PRODUCTS = "getProducts";
 export const ACTION_ADD_TO_CART = "addToCart";
+export const ACTION_REMOVE_FROM_CART = "removeFromCart";
 
 export default {
-  async [ACTION_GET_PRODUCTS]({ commit }) {
+  // async [ACTION_GET_PRODUCTS]({ commit }) {
+  async [ACTION_GET_PRODUCTS]({ commit, dispatch }) {
     const response = await fetch(
       "https://random-data-api.com/api/food/random_food?size=30"
     );
@@ -18,6 +20,15 @@ export default {
     }));
 
     commit(MUTATION_SET_PRODUCTS, preparedData);
+
+    // TODO: delete
+    preparedData.slice(0, 5).forEach((item) => {
+      console.log(item);
+      dispatch(ACTION_ADD_TO_CART, {
+        id: item.id,
+        quantity: Math.ceil(Math.random() * 9),
+      });
+    });
   },
   [ACTION_ADD_TO_CART]({ commit, state }, { id, quantity = 1 }) {
     const cart = [...state.cart];
@@ -28,6 +39,11 @@ export default {
     } else {
       cart.push({ id, quantity });
     }
+
+    commit(MUTATION_UPDATE_CART, cart);
+  },
+  [ACTION_REMOVE_FROM_CART]({ commit, state }, productId) {
+    const cart = [...state.cart].filter((item) => item.id !== productId);
 
     commit(MUTATION_UPDATE_CART, cart);
   },
