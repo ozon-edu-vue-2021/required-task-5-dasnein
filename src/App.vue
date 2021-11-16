@@ -2,10 +2,9 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Catalog</router-link> |
+      <router-link to="/favourites">Favourites</router-link> |
       <router-link to="/cart">Cart</router-link>
     </div>
-
-    <code>{{ $store.state.cart }}</code>
 
     <router-view />
   </div>

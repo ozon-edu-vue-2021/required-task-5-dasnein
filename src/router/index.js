@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import CatalogView from "../views/Catalog.vue";
 import CartView from "../views/Cart.vue";
+import FavouritesView from "../views/Favourites.vue";
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,11 @@ const routes = [
     path: "/cart",
     name: "Cart",
     component: CartView,
+  },
+  {
+    path: "/favourites",
+    name: "Favourites",
+    component: FavouritesView,
   },
 ];
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto mt-10">
+  <div class="container mx-auto my-10">
     <div class="flex shadow-md my-10">
       <div class="w-3/4 bg-white px-10 py-10">
         <div class="flex justify-between border-b pb-8">

@@ -17,6 +17,9 @@
         :alt="product.description"
         class="w-full h-full object-center object-cover lg:w-full lg:h-full"
       />
+      <button class="absolute top-2 right-2" @click="toggleFavourites">
+        <Favourite :class="favouriteIconClass" />
+      </button>
     </div>
     <div class="mt-4 flex justify-between">
       <div>
@@ -25,7 +28,7 @@
             {{ product.title }}
           </a>
         </h3>
-        <p class="mt-1 text-sm text-gray-500 product__description">
+        <p class="mt-1 text-sm text-gray-500 text-max-lines-3">
           {{ product.description }}
         </p>
       </div>
@@ -63,14 +66,20 @@
 </template>
 
 <script>
-import { ACTION_ADD_TO_CART, ACTION_REMOVE_FROM_CART } from "@/store/actions";
+import {
+  ACTION_ADD_TO_CART,
+  ACTION_REMOVE_FROM_CART,
+  ACTION_TOGGLE_FAVOURITE,
+} from "@/store/actions";
 
+import Favourite from "../assets/icons/Favourite.svg";
 import QuantityInput from "@/components/QuantityInput.vue";
 
 export default {
   name: "ProductCard",
 
   components: {
+    Favourite,
     QuantityInput,
   },
 
@@ -94,6 +103,13 @@ export default {
     isProductInCart() {
       return !!this.item;
     },
+    favouriteIconClass() {
+      if (this.product.favourite) {
+        return "icon-svg-fill-red";
+      }
+
+      return ["icon-svg-stroke-black", "icon-svg-fill-white"];
+    },
   },
 
   methods: {
@@ -104,6 +120,9 @@ export default {
       };
 
       this.$store.dispatch(ACTION_ADD_TO_CART, product);
+    },
+    toggleFavourites() {
+      this.$store.dispatch(ACTION_TOGGLE_FAVOURITE, this.product.id);
     },
   },
 
@@ -119,12 +138,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.product__description {
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  display: -webkit-box;
-}
-</style>
