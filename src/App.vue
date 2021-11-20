@@ -1,34 +1,24 @@
 <template>
   <div id="app">
+    <Header />
+    <router-view />
   </div>
 </template>
 
 <script>
+import { ACTION_GET_PRODUCTS } from "@/store/actions";
+
+import Header from "./components/Header.vue";
 
 export default {
   name: "App",
+
   components: {
-    Form,
+    Header,
+  },
+
+  created() {
+    this.$store.dispatch(ACTION_GET_PRODUCTS);
   },
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: #2c3e50;
-  background-color: #fafafa;
-  padding: 24px;
-  box-sizing: border-box;
-}
-
-html,
-body,
-#app {
-  height: 100%;
-}
-
-* {
-  box-sizing: border-box;
-}
-</style>

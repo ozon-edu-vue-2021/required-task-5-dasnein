@@ -1,0 +1,27 @@
+.icon-svg-stroke-black {
+  stroke: #000;
+}
+
+.icon-svg-fill-white {
+  fill: #FFF;
+}
+
+.icon-svg-fill-red {
+  fill: #F00;
+}
+
+.text-max-lines-3 {
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  display: -webkit-box;
+}
+
+.text-max-lines-2 {
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  display: -webkit-box;
+}
